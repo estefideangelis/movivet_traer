@@ -45,7 +45,11 @@ $(document).ready(function(){ <!-- cuando el documento este listo sucede el even
         $.getJSON("http://movivet.tk/app/listaReservas.php", function(resultados){ 
             for(i=0; i<resultados.length; i++){
 			$.each(resultados[i], function(i, campo){ <!-- van a entrar dos datos a esta funcion, o sea le doy do parametros i y campo ------ para relacionar con el ecommerce, pongo el link de listaproductos)-->
-                $("#lista").append(" "+campo+" "+"-//-"); <!-- que me agregue el dato campo y un espacio en blanco, con el <p> crea un párrafo y crea espacio en blacno uno abajo del otro -->
+			var li = '<li class="ui-first-child"><a href="#cuento'+data[i].id+'-leer-1" class="ui-btn ui-btn-icon-right ui-icon-carat-r">' + data[i].nombre + '</a></li>';
+				
+				$("#lista").append(li);
+
+                 <!-- $("#lista").append(" "+campo+" "+"-//-");que me agregue el dato campo y un espacio en blanco, con el <p> crea un párrafo y crea espacio en blacno uno abajo del otro -->
             });
 			} <!-- fin bucle for-->
         });
@@ -224,7 +228,7 @@ $(document).ready(function(){ <!-- cuando el documento este listo sucede el even
 </div>
 </form>
 
-<button id="traer">Ver fechas no disponibles este mes</button>
+<button id="traer">Ver reservas del mes</button>
 <button id="borrar">Cerrar</button>
 <div id="lista"></div>
     </div> 
