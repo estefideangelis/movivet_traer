@@ -70,7 +70,7 @@ $(document).ready(function(){ <!-- cuando el documento este listo sucede el even
 
 
 <div class="content" id="presentacion" data-role="page" data-theme="c">
-<center><a href="#inicio1"><img src="images/presentacion.png" style="width:100%;"/></a></center>
+<center><a href="#inicio"><img src="images/presentacion.png" style="width:100%;"/></a></center>
 </div>
 
 <div class="content" id="presentacion1" data-role="page" data-theme="c">
@@ -150,26 +150,28 @@ $(document).ready(function(){ <!-- cuando el documento este listo sucede el even
 </div>
 
 
-<!--<div  data-role="page" id="inicio" class="content2" data-theme="c">
+<div  data-role="page" id="inicio" class="content2" data-theme="c">
 
 
 <div data-role="header" data-theme="c">-->
 
-<!--<a href="#inicio1" class="ui-btn ui-shadow ui-corner-all ui-icon-home ui-btn-icon-notext"></a>
+<a href="#inicio1" class="ui-btn ui-shadow ui-corner-all ui-icon-home ui-btn-icon-notext"></a>
 
 
 </div>
 <img src="images/3.jpg " style="width:100%;"/>
-<!--CONTENT-<div  id="mydiv" data-role="content" data-theme="c"  class="mydiv">->
+<!--CONTENT-->
+<div  id="mydiv" data-role="content" data-theme="c"  class="mydiv">
 
 
-<!--HEADER<div data-role="navbar" data-theme="c">
+<!--HEADER-->
+<div data-role="navbar" data-theme="c">
     <ul>
 <li><a href="#inicio" class="ui-btn-c ui-btn-active ui-state-persist ui-corner-left" style="margin-left:30px;">Ingresar</a></li><li><a href="#registrar" class="ui-btn-c" style="margin-right:30px;">Registrarse</a></li>
     </ul>
 </div>
 
-<h1 id="tituloBienvenido">   </h1>-->
+<h1 id="tituloBienvenido">   </h1>
    
         
                   
@@ -179,7 +181,9 @@ $(document).ready(function(){ <!-- cuando el documento este listo sucede el even
   <input type="submit" value="Login" id="botonLogin">
        
     </form>-->
-<!--
+
+<div id="loguin">
+<div id="content" class="content">
 <form  id="formulario" method="post" onSubmit="return validar();">
 <center><h2>INICIAR SESIÓN</h2></center>
 <div class="contenedor-inputs1">
@@ -187,12 +191,14 @@ $(document).ready(function(){ <!-- cuando el documento este listo sucede el even
 <input type="text" placeholder="Usuario:" class="user-black" id="nombreUsuario" name="nombreUsuario" data-theme="c required">
 <label class="ui-hidden-accessible">Contraseña:</label><input type="password" class="lock-black" placeholder="Contraseña" id="password" name="password" data-theme="c" required>
 <input type="submit" value="Iniciar Sesión" id="botonLogin">
-<center><a href="#">He olvidado mi contraseña</a></center>
+<div id="datos_inc" class="datos_inc" style="color:#000000; padding-top: 1em"></div>
+			
+            
+            </div>
 </div>
 </form>
 
-
-
+		</div></div>
 
 
 
@@ -216,7 +222,7 @@ $(document).ready(function(){ <!-- cuando el documento este listo sucede el even
 	
     <div data-role="content" data-theme="c">
     <div id="datos-1" data-datos-id="1">
- <form class="form-reservar" method="post" id="form">
+ <form class="form-reservar" id="form">
 <h2 class="form_titulo">Reserva un turno para tu mascota</h2>
 <div class="contenedor-inputs">
 <input type="text" id="nombreUsuario" name="nombreUsuario" placeholder="Usuario:" class="input-48" required>
@@ -229,6 +235,7 @@ $(document).ready(function(){ <!-- cuando el documento este listo sucede el even
 </div>
 </form>
  </div>
+ 
 
       
     
@@ -294,7 +301,7 @@ $(document).ready(function(){ <!-- cuando el documento este listo sucede el even
 	
 <!--PAGINA REGISTRAR -->
 
-<!--<div  data-role="page" id="registrar"  data-theme="c">
+<div  data-role="page" id="registrar"  data-theme="c">
 
 
 <div data-role="header" data-theme="c">
@@ -304,10 +311,10 @@ $(document).ready(function(){ <!-- cuando el documento este listo sucede el even
 
 </div>
 <img src="images/3.jpg " style="width:100%;"/>
-<!--CONTENT<div data-role="content" data-theme="c" >-->
+<CONTENT<div data-role="content" data-theme="c" >
 
 <!--HEADER-->
-<!--<div data-role="navbar" data-theme="c">
+<div data-role="navbar" data-theme="c">
 
     <ul>
 <li><a href="#inicio" class="ui-btn-c" style="margin-left:30px;">Ingresar</a></li><li><a href="#registrar" class="ui-btn-c ui-btn-active ui-state-persist" style="margin-right:30px;">Registrarse</a></li>
@@ -329,15 +336,15 @@ $(document).ready(function(){ <!-- cuando el documento este listo sucede el even
 
 
 </div>
-</form>-->
+</form>
 
-<!--FOOTER</div>
+<!--FOOTER--></div>
 <div data-role="footer" data-theme="c" style="font-size:13px; margin-top:30px;">
 <center><p>Registrate y conocé los beneficios de Movivet<p></center>
 </div>
 </div>
 
--->
+
 
 
 
@@ -428,6 +435,36 @@ $(document).bind('deviceready', function(){
         });
     });
 });
+
+
+// *.. Autenticacion del formulario ..*
+	$('#formulario').submit(function() {
+		alert("entro");
+		var datosUsuario = $("#nombreUsuario").val()    // tomo lo que esta en el input de usuario
+		var datosPassword = $("#password").val()             // tomo lo que esta en el input de password
+		
+	  	archivoValidacion = "http://movivet.tk/app/validacion_de_datos2.php?jsoncallback=?" // url del archivo php que busca en la db
+
+		$.getJSON(archivoValidacion,{usuario:datosUsuario ,password:datosPassword})
+        .done(function(respuestaServer) {
+			alert("entro2");
+			$mensa = respuestaServer.mensaje;             // tomo los mensajes que devuelve el php
+
+            if(respuestaServer.validacion == "ok") {
+			               
+              /// si la validacion es correcta, muestra la pantalla "home"
+			$.mobile.changePage("#inicio1")
+                      
+                
+             
+            } else {
+                $('#datos_inc').append(respuestaServer.mensaje);
+				
+            }
+        })
+		return false;
+	});
+	
 
 </script>
 
