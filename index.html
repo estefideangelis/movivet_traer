@@ -214,37 +214,23 @@ $(document).ready(function(){ <!-- cuando el documento este listo sucede el even
 <img src="images/3.jpg" style="width:100%;"/>
 
 	
-    
-    <div class="contenedor-inputs">
-<div id="datos-1" data-datos-id="1"><form><label for="email">
- <b>Email</b>
- <input id="email" type="email" name="email" />
- </label>
- <label for="comment">
- <b>Comentario</b>
- <textarea id="comment" cols="30" name="comment" rows="10"></textarea>
- </label>
- <input type="submit" value="Enviar" /></form></div>
- </div>
-
-        <!--<form class="form-reservar" method="post" onSubmit="return validar();">
+    <div data-role="content" data-theme="c">
+    <div id="datos-1" data-datos-id="1">
+ <form class="form-reservar" method="post" id="form">
 <h2 class="form_titulo">Reserva un turno para tu mascota</h2>
 <div class="contenedor-inputs">
-<!--<input type="date" id="fecha" name="fecha" placeholder="fecha" class="input-48" required><input type="date" id="input_fecha" name="fecha" step="1" value="2016-07-04" max="2016-07-31" min="2016-07-04" class="input-48" required>
+<input type="text" id="nombreUsuario" name="nombreUsuario" placeholder="Usuario:" class="input-48" required>
+<input type="date" id="input_fecha" name="fecha" step="1" value="2016-07-04" max="2016-07-31" min="2016-07-04" class="input-48" required>
 <input type="time" id="input_hora" name="hora" step="1" value="10:00" max="18:00" min="10:00" class="input-48" required>
 
 <input type="submit" value="Reservar" class="btn-enviar">
-
+</div>
 
 </div>
 </form>
+ </div>
 
-<button id="traer">Ver reservas del mes</button>
-<button id="borrar">Cerrar</button>
-<div id="lista"></div>
-    </div> -->
-
-
+      
     
     
     <div data-role="footer" data-theme="c" style="font-size:13px;">
@@ -428,13 +414,14 @@ $(document).bind('deviceready', function(){
                 url: 'http://movivet.tk/guardar.php',
                 success: function(data){
                     console.log(data);
-                    $('#email').val('');
-                    $('#comment').val('');
-                    alert('Tu comentario fue agregado');
+					$('#nombreUsuario').val('');
+                    $('#fecha').val('');
+                    $('#hora').val('');
+                    alert('Has reservado con exito');
                 },
                 error: function(data){
                     console.log(data);
-                    alert('Ocurrio un error al enviar tu comentario');
+                    alert('Ocurrio un error al reservar');
                 }
             });
             return false;
