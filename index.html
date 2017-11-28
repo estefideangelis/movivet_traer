@@ -213,12 +213,24 @@ $(document).ready(function(){ <!-- cuando el documento este listo sucede el even
 </div>
 <img src="images/3.jpg" style="width:100%;"/>
 
-	<div data-role="content" data-theme="c">
-        <form class="form-reservar" method="post" onSubmit="return validar();">
+	
+    
+    <div class="contenedor-inputs">
+<div id="datos-1" data-datos-id="1"><form><label for="email">
+ <b>Email</b>
+ <input id="email" type="email" name="email" />
+ </label>
+ <label for="comment">
+ <b>Comentario</b>
+ <textarea id="comment" cols="30" name="comment" rows="10"></textarea>
+ </label>
+ <input type="submit" value="Enviar" /></form></div>
+ </div>
+
+        <!--<form class="form-reservar" method="post" onSubmit="return validar();">
 <h2 class="form_titulo">Reserva un turno para tu mascota</h2>
 <div class="contenedor-inputs">
-<!--<input type="date" id="fecha" name="fecha" placeholder="fecha" class="input-48" required>-->
-<input type="date" id="input_fecha" name="fecha" step="1" value="2016-07-04" max="2016-07-31" min="2016-07-04" class="input-48" required>
+<!--<input type="date" id="fecha" name="fecha" placeholder="fecha" class="input-48" required><input type="date" id="input_fecha" name="fecha" step="1" value="2016-07-04" max="2016-07-31" min="2016-07-04" class="input-48" required>
 <input type="time" id="input_hora" name="hora" step="1" value="10:00" max="18:00" min="10:00" class="input-48" required>
 
 <input type="submit" value="Reservar" class="btn-enviar">
@@ -230,8 +242,9 @@ $(document).ready(function(){ <!-- cuando el documento este listo sucede el even
 <button id="traer">Ver reservas del mes</button>
 <button id="borrar">Cerrar</button>
 <div id="lista"></div>
-    </div> 
-    
+    </div> -->
+
+
     
     
     <div data-role="footer" data-theme="c" style="font-size:13px;">
@@ -399,6 +412,36 @@ $(function(){
 		});
 	});
 });
+
+
+
+// con deviceready nos aseguramos que el dispositivo este listo para ser usado
+$(document).bind('deviceready', function(){
+    $(function(){
+        $('form').submit(function(){
+            var dataID = $(this).parent().attr('data-datos-id');
+            var postData = $(this).serialize();
+            $.ajax({
+                type: 'POST',
+                data: postData+'&lid='+dataID,
+                // cargamos la url del servidor externo
+                url: 'http://movivet.tk/guardar.php',
+                success: function(data){
+                    console.log(data);
+                    $('#email').val('');
+                    $('#comentario').val('');
+                    alert('Tu comentario fue agregado');
+                },
+                error: function(data){
+                    console.log(data);
+                    alert('Ocurrio un error al enviar tu comentario');
+                }
+            });
+            return false;
+        });
+    });
+});
+
 </script>
 
 
