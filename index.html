@@ -439,7 +439,7 @@ $(document).bind('deviceready', function(){
 
 // *.. Autenticacion del formulario ..*
 	$('#formulario').submit(function() {
-		alert("entro");
+		
 		var datosUsuario = $("#nombreUsuario").val()    // tomo lo que esta en el input de usuario
 		var datosPassword = $("#password").val()             // tomo lo que esta en el input de password
 		
@@ -447,13 +447,13 @@ $(document).bind('deviceready', function(){
 
 		$.getJSON(archivoValidacion,{usuario:datosUsuario ,password:datosPassword})
         .done(function(respuestaServer) {
-			alert("entro2");
+			
 			$mensa = respuestaServer.mensaje;             // tomo los mensajes que devuelve el php
 
             if(respuestaServer.validacion == "ok") {
 			               
               /// si la validacion es correcta, muestra la pantalla "home"
-			$.mobile.changePage("#inicio1")
+			$.mobile.changePage("#inicio")
                       
                 
              
